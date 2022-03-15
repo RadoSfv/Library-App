@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace Library.Domain
 {
@@ -7,5 +8,7 @@ namespace Library.Domain
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
     }
 }
