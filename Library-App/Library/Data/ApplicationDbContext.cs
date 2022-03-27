@@ -8,6 +8,8 @@ namespace Library.Data
     public class ApplicationDbContext : IdentityDbContext<LibraryUser, IdentityRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        { }
+        {
+            this.Database.EnsureCreated();
+        }
     }
 }

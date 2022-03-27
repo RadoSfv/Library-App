@@ -22,16 +22,13 @@ namespace Library.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<LibraryUser> _signInManager;
         private readonly UserManager<LibraryUser> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
 
         public RegisterModel(
             UserManager<LibraryUser> userManager,
-            SignInManager<LibraryUser> signInManager,
-            ILogger<RegisterModel> logger)
+            SignInManager<LibraryUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
         }
 
         [BindProperty]
@@ -39,14 +36,33 @@ namespace Library.Areas.Identity.Pages.Account
 
         public string ReturnUrl { get; set; }
 
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
         public class InputModel
         {
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+
+            [DataType(DataType.Date)]
+            [Display(Name = "Birth date")]
+            public DateTime BirthDate { get; set; }
+
+            [Required]
+            [Display(Name = "Address")]
+            public string Address { get; set; }
+            
+            [Required]
+            [Phone]
+            [Display(Name = "Phone number")]
+            public string PhoneNumber { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
@@ -60,19 +76,27 @@ namespace Library.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public void OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
-                var user = new LibraryUser { UserName = Input.Email, Email = Input.Email };
+                var user = new LibraryUser 
+                { 
+                    Email = Input.Email,
+                    UserName = Input.Email,
+                    FirstName = Input.FirstName, 
+                    LastName = Input.LastName, 
+                    Address = Input.Address, 
+                    BirthDate = Input.BirthDate,
+                    PhoneNumber = Input.PhoneNumber
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -80,13 +104,11 @@ namespace Library.Areas.Identity.Pages.Account
                     if (_userManager.Users.Count() == 1)
                     {
                         await _userManager.AddToRoleAsync(user, "Admin");
-                    } 
+                    }
                     else
                     {
                         await _userManager.AddToRoleAsync(user, "Reader");
                     }
-
-                    _logger.LogInformation("User created a new account with password.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
