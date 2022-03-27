@@ -76,6 +76,16 @@ namespace Library.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    // First registered user is automatically Admin
+                    if (_userManager.Users.Count() == 1)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    } 
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "Reader");
+                    }
+
                     _logger.LogInformation("User created a new account with password.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)

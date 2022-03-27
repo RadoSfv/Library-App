@@ -1,5 +1,6 @@
 using Library.Data;
 using Library.Domain;
+using Library.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -72,6 +73,8 @@ namespace Library
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedRoles();
 
             app.UseEndpoints(endpoints =>
             {
