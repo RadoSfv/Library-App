@@ -19,6 +19,75 @@ namespace Library.Migrations
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Library.Domain.Author", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BookId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("Library.Domain.Book", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("BooksCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CoverImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GenreId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SignatureId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenreId");
+
+                    b.HasIndex("SignatureId");
+
+                    b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("Library.Domain.Genre", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
+                });
+
             modelBuilder.Entity("Library.Domain.LibraryUser", b =>
                 {
                     b.Property<string>("Id")
@@ -94,6 +163,48 @@ namespace Library.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Library.Domain.Signature", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Signatures");
+                });
+
+            modelBuilder.Entity("Library.Domain.TakenBook", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateTaken")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LibrarianId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ReaderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SignatureId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LibrarianId");
+
+                    b.HasIndex("ReaderId");
+
+                    b.HasIndex("SignatureId");
+
+                    b.ToTable("TakenBooks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -231,6 +342,49 @@ namespace Library.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Library.Domain.Author", b =>
+                {
+                    b.HasOne("Library.Domain.Book", null)
+                        .WithMany("Authors")
+                        .HasForeignKey("BookId");
+                });
+
+            modelBuilder.Entity("Library.Domain.Book", b =>
+                {
+                    b.HasOne("Library.Domain.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId");
+
+                    b.HasOne("Library.Domain.Signature", "Signature")
+                        .WithMany()
+                        .HasForeignKey("SignatureId");
+
+                    b.Navigation("Genre");
+
+                    b.Navigation("Signature");
+                });
+
+            modelBuilder.Entity("Library.Domain.TakenBook", b =>
+                {
+                    b.HasOne("Library.Domain.LibraryUser", "Librarian")
+                        .WithMany()
+                        .HasForeignKey("LibrarianId");
+
+                    b.HasOne("Library.Domain.LibraryUser", "Reader")
+                        .WithMany()
+                        .HasForeignKey("ReaderId");
+
+                    b.HasOne("Library.Domain.Signature", "Signature")
+                        .WithMany()
+                        .HasForeignKey("SignatureId");
+
+                    b.Navigation("Librarian");
+
+                    b.Navigation("Reader");
+
+                    b.Navigation("Signature");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -280,6 +434,11 @@ namespace Library.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Library.Domain.Book", b =>
+                {
+                    b.Navigation("Authors");
                 });
 #pragma warning restore 612, 618
         }
