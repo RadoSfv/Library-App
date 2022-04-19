@@ -1,4 +1,5 @@
-﻿using Library_App.Entities;
+﻿using Library_App.Data;
+using Library_App.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,8 @@ namespace Library_App.Infrastructure
 
             await RoleSeeder(services);
             await SeedAdministrator(services);
+            var data= serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            SeedGeners(data);
 
 
             return app;
@@ -64,6 +67,25 @@ namespace Library_App.Infrastructure
                                         "Administrator").Wait();
                 }
             }
+        }
+        private static void SeedGeners(ApplicationDbContext data)
+        {
+            if (data.Genres.Any())
+            {
+                return;
+            }
+            data.Genres.AddRange(new[]
+            {
+                new Genre {Name="Roman"},
+                new Genre {Name="Fiction"},
+                new Genre {Name="Lyrics"},
+                new Genre {Name="Drama"},
+                new Genre {Name="TextBook"},
+                new Genre {Name="Computer Literature"},
+
+
+            });
+            data.SaveChanges();
         }
     }
 }

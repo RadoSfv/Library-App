@@ -15,6 +15,7 @@ namespace Library_App.Entities
 
         public string Title { get; set; }
 
+        //  public IEnumerable<Author> Authors { get; set; } = new List<Author>();
         public string AuthorId { get; set; }
         public virtual Author Author { get; set; }
 

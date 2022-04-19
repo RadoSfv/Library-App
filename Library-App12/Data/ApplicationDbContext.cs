@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Library_App.Models;
 
 namespace Library_App.Data
 {
@@ -23,5 +24,13 @@ namespace Library_App.Data
         {
             this.Database.EnsureCreated();
         }
+
+        public DbSet<Library_App.Models.CreateEmployeeVM> CreateEmployeeVM { get; set; }
+
+        public DbSet<Library_App.Models.EmployeeListingVM> EmployeeListingVM { get; set; }
+
+        public DbSet<Library_App.Models.EmployeeDetailsVM> EmployeeDetailsVM { get; set; }
+
+        public DbSet<Library_App.Models.EditEmployeeVM> EditEmployeeVM { get; set; }
     }
 }

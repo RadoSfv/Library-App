@@ -16,7 +16,8 @@ namespace Library_App.Entities
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-      
+        //public string BookId { get; set; }
+        //public Book Book { get; set; }
         public virtual IEnumerable<Book> Books { get; set; } = new List<Book>();
     }
 }
