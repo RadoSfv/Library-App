@@ -9,7 +9,7 @@ using Library_App.Data;
 using Library_App.Entities;
 using Library_App.Models.Book;
 using Library_App.Abstractions;
-using Library_App.Models;
+using Library_App.Models.Employee;
 
 namespace Library_App.Controllers
 {

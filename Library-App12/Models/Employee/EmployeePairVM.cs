@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Library_App.Models
+namespace Library_App.Models.Employee
 {
     public class EmployeePairVM
     {

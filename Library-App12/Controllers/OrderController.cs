@@ -129,6 +129,7 @@ namespace Library_App.Controllers
         {
             var statistic = new StatisticViewModel();
             statistic.countLibrarian = context.Employees.Count();
+            //statistic.countReaders = context.Users.Where(u => u.;
             statistic.countUser = context.Users.Count();
             statistic.countBook = context.TakeBooks.Count(x=>x.Signature.IsTaken=="taken");
 

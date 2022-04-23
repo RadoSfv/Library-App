@@ -1,0 +1,36 @@
+﻿@model Library_App.Models.StatisticViewModel
+
+@{
+    ViewData["Title"] = "App Statistics";
+}
+
+<h1>App statistics</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.countUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.countLibrarian)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.countBook)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.countUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.countLibrarian)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.countBook)
+            </td>
+        </tr>
+    </tbody>
+</table>

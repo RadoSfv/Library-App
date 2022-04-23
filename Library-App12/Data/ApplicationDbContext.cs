@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Library_App.Models;
 using Library_App.Models.Order;
+using Library_App.Models.Employee;
 
 namespace Library_App.Data
 {
@@ -26,13 +26,13 @@ namespace Library_App.Data
             this.Database.EnsureCreated();
         }
 
-        public DbSet<Library_App.Models.CreateEmployeeVM> CreateEmployeeVM { get; set; }
+        public DbSet<CreateEmployeeVM> CreateEmployeeVM { get; set; }
 
-        public DbSet<Library_App.Models.EmployeeListingVM> EmployeeListingVM { get; set; }
+        public DbSet<EmployeeListingVM> EmployeeListingVM { get; set; }
 
-        public DbSet<Library_App.Models.EmployeeDetailsVM> EmployeeDetailsVM { get; set; }
+        public DbSet<EmployeeDetailsVM> EmployeeDetailsVM { get; set; }
 
-        public DbSet<Library_App.Models.EditEmployeeVM> EditEmployeeVM { get; set; }
+        public DbSet<EditEmployeeVM> EditEmployeeVM { get; set; }
 
         public DbSet<Library_App.Models.Order.OrderListVM> OrderListVM { get; set; }
     }

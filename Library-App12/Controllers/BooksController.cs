@@ -96,8 +96,9 @@ namespace Library_App.Controllers
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id", book.AuthorId);
-            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Id", book.GenreId);
+
+            ViewData["AuthorName"] = new SelectList(_context.Authors, "LastName", "LastName", book.Author.LastName);
+            ViewData["GenreName"] = new SelectList(_context.Genres, "Name", "Name", book.Genre.Name);
             return View(book);
         }
 

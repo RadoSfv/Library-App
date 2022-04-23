@@ -1,5 +1,6 @@
 ﻿@using Library_App.Entities
 @using Library_App.Models.Order
+@using Library_App.Models.Employee
 @model IEnumerable<Library_App.Entities.Signature>
 
 @{
@@ -11,7 +12,7 @@
 <p>
     @if (User.IsInRole("Administrator"))
     {
-        <a asp-action="Create">Create New</a>
+        <a asp-action="Create">Create New Signature</a>
     }
 </p>
 <table class="table">
@@ -29,10 +30,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsTaken)
             </th>
-            <th>
-                Take
-            </th>
-            <th></th>
+            @if (!this.User.IsInRole("Employee"))
+            {
+                <th>
+                    Take
+                </th>
+                <th>
+                    Actions
+                </th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -52,20 +58,23 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.IsTaken)
                 </td>
-                <td>
-                    @await Html.PartialAsync("_OrderPartialView", new OrderCreateBindingModel
-               {
-                   SignatureId = item.Id,
-                   Employees = ViewData["employees"] as List<EmployeePairVM>,
-                   IsTaken = item.IsTaken
-               })
-                </td>
-                <td>
-                    @if (User.IsInRole("Administrator") || User.IsInRole("Librarian"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    }
-                </td>
+                @if (!this.User.IsInRole("Employee"))
+                {
+                    <td>
+                        @await Html.PartialAsync("_OrderPartialView", new OrderCreateBindingModel
+                           {
+                               SignatureId = item.Id,
+                               Employees = ViewData["employees"] as List<EmployeePairVM>,
+                               IsTaken = item.IsTaken
+                           })
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        }
+                    </td>
+                }
             </tr>
         }
     </tbody>

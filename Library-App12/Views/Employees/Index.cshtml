@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Library_App.Models.EmployeeListingVM>
+﻿@model IEnumerable<Library_App.Models.Employee.EmployeeListingVM>
 
 @{
     ViewData["Title"] = "Index";
@@ -30,7 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.JobTitle)
             </th>
-            <th></th>
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>

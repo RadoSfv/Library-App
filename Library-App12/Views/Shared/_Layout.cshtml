@@ -8,52 +8,52 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header style="background-color: peru">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="color: white">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Library App</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Library App</a>
+                <button class="navbar-toggler text-light" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="AppStatistic">Statistics</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Order" asp-action="AppStatistic">Statistics</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authors" asp-action="Index">Authors</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Authors" asp-action="Index">Authors</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
                             </li>
                         }
                         @if (this.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Signatures" asp-action="Index">Book collection</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Signatures" asp-action="Index">Book collection</a>
                             </li>
                         }
 
                         @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")) || (this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Employee")))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Taken Books</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Order" asp-action="Index">Taken Books</a>
                             </li>
                         }
-                        @if (this.User.Identity.IsAuthenticated)
+                        @if (this.User.Identity.IsAuthenticated && !this.User.IsInRole("Employee"))
                         {
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="My">My Taken Books</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Order" asp-action="My">My Taken Books</a>
                             </li>
 
                         }
@@ -69,9 +69,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - Library_App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer text-muted" style="background: peru">
+        <div class="container" style="color: white;">
+            &copy; 2022 - Library_App
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
