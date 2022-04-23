@@ -1,0 +1,49 @@
+﻿@using Library_App.Entities
+@model Library_App.Models.Order.OrderCreateBindingModel
+
+<form asp-controller="Order" asp-action="Create" method="post">
+    <div class="d-flex align-items-center">
+        @*<label class="font-weight-bold text-left mr-1" asp-for="EmployeeId">EmployeeId:</label>
+        <div class="mr-1">
+            <input class="form-control" min="1" asp-for="EmployeeId" />
+            <span asp-validation-for="EmployeeId" class="text-danger"></span>
+        </div>*@
+        @*@if (Model.IsTaken != "taken")
+        {
+            <div class="mr-1">
+                <label class="font-weight-bold text-left mr-1" asp-for="EmployeeId">Employee:</label>
+                <select asp-for="EmployeeId" class="form-control">
+                    @foreach (var employee in Model.Employees)
+                    {
+                        <option value="@employee.Id">@employee.EmployeeName</option>
+                    }
+                </select>
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-danger">Take</button>
+        }
+        else
+        {
+            <p>Book is already taken</p>
+        }*@
+        <div class="mr-1">
+            <label class="font-weight-bold text-left mr-1" asp-for="EmployeeId">Employee:</label>
+            <select asp-for="EmployeeId" class="form-control">
+                @foreach (var employee in Model.Employees)
+                {
+                    <option value="@employee.Id">@employee.EmployeeName</option>
+                }
+            </select>
+            <span asp-validation-for="EmployeeId" class="text-danger"></span>
+        </div>
+        @if (Model.IsTaken != "taken")
+        {
+            <button type="submit" class="btn btn-danger">Take</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-danger" disabled>Take</button>
+        }
+    </div>
+    <input type="hidden" asp-for="SignatureId" value="@Model.SignatureId">
+</form>

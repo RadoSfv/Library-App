@@ -59,7 +59,7 @@ namespace Library_App.Infrastructure
                 user.Email = "admin@admin.com";
 
 
-                var result = await userManager.CreateAsync(user, "123!@#");
+                var result = await userManager.CreateAsync(user, "123321");
 
                 if (result.Succeeded)
                 {

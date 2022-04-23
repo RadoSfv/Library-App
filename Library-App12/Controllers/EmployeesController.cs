@@ -120,7 +120,8 @@ namespace Library_App.Controllers
                 FirstName = item.FirstName,
                 LastName = item.LastName,
                 Phone = item.Phone,
-                JobTitle = item.JobTitle
+                JobTitle = item.JobTitle,
+                Address = item.Address
             };
             return View(employee);
 

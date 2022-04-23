@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Library_App.Models;
+using Library_App.Models.Order;
 
 namespace Library_App.Data
 {
@@ -32,5 +33,7 @@ namespace Library_App.Data
         public DbSet<Library_App.Models.EmployeeDetailsVM> EmployeeDetailsVM { get; set; }
 
         public DbSet<Library_App.Models.EditEmployeeVM> EditEmployeeVM { get; set; }
+
+        public DbSet<Library_App.Models.Order.OrderListVM> OrderListVM { get; set; }
     }
 }

@@ -44,6 +44,8 @@ namespace Library_App
             services.AddControllersWithViews();
 
             services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IBookService, BookService>();
 
 
             //services.AddTransient<ICategoryService, CategoryService>();

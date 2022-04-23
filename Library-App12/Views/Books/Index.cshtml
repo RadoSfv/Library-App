@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Library_App.Models.EmployeeListingVM>
+﻿@model IEnumerable<Library_App.Entities.Book>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Employees</h1>
+<h1>Books</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,22 +13,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor(model => model.Author)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor(model => model.Genre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                @Html.DisplayNameFor(model => model.CoverImage)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.JobTitle)
+                @Html.DisplayNameFor(model => model.BooksCount)
             </th>
             <th></th>
         </tr>
@@ -37,22 +37,23 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.Author.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(modelItem => item.Genre.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                <img src="@Html.DisplayFor(modelItem => item.CoverImage)" alt="Image" width="100" />
+                @*@Html.DisplayFor(modelItem => item.CoverImage)*@
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Phone)
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.JobTitle)
+                @Html.DisplayFor(modelItem => item.BooksCount)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
